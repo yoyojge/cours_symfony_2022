@@ -1,0 +1,23 @@
+{# http://localhost/cours-symfony-form-2022/public/index.php/personne/add #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PersonneController!
+{% endblock %}
+
+{% block body %}
+	{# {{form(formUI)}} #}
+	<div class="errors">
+		{{form_start(formUI)}}
+		{{form_errors(formUI)}}
+	</div>
+	<div>
+		{{form_label(formUI.nom, "Nom de la personne")}}
+		{{form_widget(formUI.nom)}}
+	</div>
+	<div>
+		{{form_rest(formUI)}}
+	</div>
+	<div>
+		{{form_end(formUI)}}
+	</div>
+{% endblock %}
