@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
+use App\Form\PersonneType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,16 +23,10 @@ class PersonneController extends AbstractController
     public function addForm(Request $request, EntityManagerInterface $em): Response
     {
         $personne = new Personne();
-        /*1.On appelle la méthode createFormBuilder
-        2 On spécifie le nom d’objet qui va assurer le binding
-        3 On indique le type HTML pour chaque attribut de l’objet
-        4 On appelle la méthode getForm () pour générer le formulaire
+        /*1.On appelle la méthode createForm
+        2 On spécifie le constructeur de form et nom d’objet qui va assurer le binding
         */
-        $form = $this->createFormBuilder($personne)
-            ->add("nom", TextType::class)
-            ->add("prenom", TextType::class)
-            ->add("creer", SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(PersonneType::class, $personne);
         /*                
         5 On passe la méthode createView () du formulaire à la vue */
         //on récupère les données de formulaire

@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block body %}
+	<h1>Formulaire d'ajout</h1>
 	{# {{form(formUI)}} #}
 	<div class="errors">
 		{{form_start(formUI)}}
-		{{form_errors(formUI)}}
+		{{form_errors(formUI, {'attr':{'class': 'error'}})}}
 	</div>
 	<div>
 		{{form_label(formUI.nom, "Nom de la personne")}}
-		{{form_widget(formUI.nom)}}
+		{{form_widget(formUI.nom, {'attr': {'required': true, 'class':'nomPersonne'} })}}
 	</div>
 	<div>
 		{{form_rest(formUI)}}
