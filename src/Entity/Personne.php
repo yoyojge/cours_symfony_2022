@@ -41,7 +41,7 @@ class Personne
 
     #[ORM\ManyToMany(targetEntity: Sport::class, inversedBy: 'personnes', cascade: ['persist'])]
     /**
-     * pour la validation d'objet imriqué
+     * pour la validation d'objet imbriqué
      * @Assert\Valid()
      */
     private $sports;
