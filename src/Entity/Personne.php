@@ -6,6 +6,7 @@ use App\Repository\PersonneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints  as Assert;
 
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 class Personne
@@ -16,15 +17,33 @@ class Personne
     private $id;
 
     #[ORM\Column(type: 'string', length: 30)]
+    /**
+     * @Assert\Length(
+     * min=1,
+     * max=30,
+     * minMessage="votre nom doit contenir au moins {{ limit }} caractère(s)",
+     * maxMessage="votre nom doit contenir au plus {{ limit }} caractères",
+     * allowEmptyString=false
+     * )
+     * @Assert\NotBlank(message="le nom ne peut pas être vide !")
+     */
     private $nom;
 
     #[ORM\Column(type: 'string', length: 30)]
     private $prenom;
 
     #[ORM\OneToOne(targetEntity: Adresse::class, cascade: ['persist', 'remove'])]
+    /**
+     * pour la validation d'objet imriqué
+     * @Assert\Valid()
+     */
     private $adresse;
 
     #[ORM\ManyToMany(targetEntity: Sport::class, inversedBy: 'personnes', cascade: ['persist'])]
+    /**
+     * pour la validation d'objet imriqué
+     * @Assert\Valid()
+     */
     private $sports;
 
     public function __construct()
