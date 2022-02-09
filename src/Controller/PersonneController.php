@@ -35,7 +35,7 @@ class PersonneController extends AbstractController
         $form->handleRequest($request);
         //si le formulaire a été envoyé avec la méthode POST
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getData());
+            // var_dump($form->getData());
             $personne = $form->getData();
             $em->persist($personne);
             foreach ($personne->getSports() as $sport) {
@@ -43,7 +43,7 @@ class PersonneController extends AbstractController
             }
             $em->flush();
             //on redirige vers /personne
-            // return $this->redirectToRoute("personne");
+            return $this->redirectToRoute("personne");
         }
         return $this->render('personne/add.html.twig', [
             "formUI" => $form->createView()
