@@ -1,24 +1,31 @@
-{# http://localhost/cours-symfony-form-2022/public/index.php/personne/add #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello PersonneController!
 {% endblock %}
 
 {% block body %}
-	<h1>Formulaire d'ajout</h1>
-	{# {{form(formUI)}} #}
-	<div class="errors">
-		{{form_start(formUI)}}
-		{{form_errors(formUI, {'attr':{'class': 'error'}})}}
-	</div>
-	<div>
-		{{form_label(formUI.nom, "Nom de la personne")}}
-		{{form_widget(formUI.nom, {'attr': {'required': true, 'class':'nomPersonne'} })}}
-	</div>
-	<div>
+	<div class="container">
+		{{ form_start(formUI, {'attr': {'novalidate': 'novalidate'} }
+		) }}
+		{{form_errors(formUI)}}
+		<div class="form-group">
+			{{form_label(formUI.nom, "Nom de la personne")}}
+			{{form_widget(formUI.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la personne'}}
+			)}}
+		</div>
+		<div class="form-group">
+			{{form_label(formUI.prenom, "Prénom de la personne")}}
+			{{form_widget(formUI.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom de la personne'}}
+			)}}
+		</div>
+		{{form_widget(formUI.adresse)}}<ul class="sports" data-prototype="{{ form_widget(formUI.sports.vars.prototype) | e('html_attr')}}"></ul>
+
+
 		{{form_rest(formUI)}}
-	</div>
-	<div>
+
 		{{form_end(formUI)}}
-	</div>
-{% endblock %}
+	</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{{asset('js/form.js')}}"></script>{% endblock %}

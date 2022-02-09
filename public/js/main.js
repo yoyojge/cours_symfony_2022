@@ -1,1 +1,1 @@
-alert("symfony !");
+// alert("symfony !");
