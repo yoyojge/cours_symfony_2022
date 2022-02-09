@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Personne;
+use App\Entity\Sport;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,14 +23,27 @@ class PersonneType extends AbstractType
             ->add("adresse", AdresseType::class)
             ->add(
                 "sports",
-                CollectionType::class,
+                EntityType::class, //une liste de selection
                 [
-                    'entry_type' => SportType::class,
-                    'entry_options' => ['label' => false],
-                    'allow_add' => true,
-                    'allow_delete' => true
+                    'class' => Sport::class,
+                    'choice_label' => 'nom', //<option>{{nom}}</option>
+                    'query_builder' => function (EntityRepository $repo) {
+                        return $repo->createQueryBuilder('s');
+                    },
+                    'label' => "Sports préférés",
+                    'multiple' => true
                 ]
             )
+            // ->add(
+            //     "sports",
+            //     CollectionType::class,
+            //     [
+            //         'entry_type' => SportType::class,
+            //         'entry_options' => ['label' => false],
+            //         'allow_add' => true,
+            //         'allow_delete' => true
+            //     ]
+            // )
             ->add("creer", SubmitType::class);
     }
 
