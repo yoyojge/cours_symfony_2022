@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Personne;
 use App\Form\PersonneType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,22 @@ class PersonneController extends AbstractController
             "formUI" => $form->createView()
         ]);
     }
+    #[Route('/personne/update', name: 'personne_update')]
+    public function updateForm(Request $request, EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        return new Response("update");
+    }
+    #[Route('/personne/delete', name: 'personne_delete')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(Request $request, EntityManagerInterface $em): Response
+    {
+        return new Response("delete");
+    }
+
+
+
+
 
     /**
      * @Route("/email")
